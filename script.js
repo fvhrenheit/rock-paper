@@ -10,68 +10,91 @@ else{
     choice = "scissors"
 }
     return choice;
-}
+};
 
 function playRound(playerSelection, computerSelection) {
+ 
     ps = playerSelection;
     cs = computerSelection;
 
     if(ps===cs){
-        return "draw";
+        return "It's a draw...";
     }
     if (ps==="scissors"){
         if (cs==="paper"){
-        return "You win";
+        return "You win the round";
         }
         else if (cs==="rock"){
-            return "You loose";
+            return "You loose the round";
         }
         
     }
     else if (ps==="paper"){
         if (cs==="scissors"){
-        return "You loose";
+        return "You loose the round";
         }
         else if(cs==="rock"){
-        return "You win";
+        return "You win the round";
         }
         
     }
     else if (ps==="rock"){
         if (cs==="paper"){
-        return "You loose";
+        return "You loose the round";
         }
         else if(cs==="scissors"){
-            return "You win";
+            return "You win the round";
         }
         
     }
-}
+};
 
-function playGame(){
-    playerScore = 0;
-    computerScore = 0;
-    for (let i = 0; i < 5; i++){
-        let playerSelection = prompt(`rpc:`);
-        let computerSelection = getComputerChoice();
+
+let playerScore = 0;
+let computerScore = 0;
+
+
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) =>{
+    button.addEventListener('click', () => {
+        playerSelection = button.className;
+        const computerSelection = getComputerChoice();
         let roundResult = playRound(playerSelection, computerSelection);
-        console.log(roundResult);
-        if (roundResult.includes('win')){
+        document.querySelector(".cs").innerHTML = (computerSelection);
+        document.querySelector(".round").innerHTML = (roundResult);
+        
+        if (roundResult.includes("win")){
             playerScore++;
         }
-        else if (roundResult.includes(`loose`)){
+        else if (roundResult.includes("loose")){
             computerScore++;
         }
+        
+        document.querySelector(".ptotal").innerHTML = (playerScore);
+        document.querySelector(".ctotal").innerHTML = (computerScore);
+        endGame();
+    });
+});
+
+function endGame(){
+    if(playerScore == 5){
+        document.querySelector(".winner").innerHTML = ("You won the game!");
     }
-    console.log(`Player Total Score ${playerScore}`);
-    console.log(`Computer Total Score ${computerScore}`);
-    if (playerScore > computerScore) {
-        console.log('you win the game')
-    }
-    else if(computerScore > playerScore){
-        console.log('you loose the game')
-    }
-    else{
-        console.log("it's a tie")
+    else if(computerScore == 5){
+        document.querySelector(".winner").innerHTML = ("You have lost the game!");
     }
 }
+        
+        
+
+
+        
+
+
+
+
+
+
+
+
